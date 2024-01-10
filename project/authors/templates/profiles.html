@@ -1,6 +1,11 @@
 
 
 <h2>Welcome, {{ user_profile.username }}!</h2>
+{% if user.profile_authors.confirmation %}
+            <h3>Congratulations! You are a confirmed user.</h3>
+        {% else %}
+            <h4>You are not yet confirmed.</h4>
+        {% endif %}
 <p>Email: {{ user_profile.email }}</p>
 
 {% if user_profile.bio %}

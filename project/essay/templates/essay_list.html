@@ -14,6 +14,11 @@
 
     {% else %}
         <h2>Welcome, {{ user.username }}!</h2>
+        {% if user.profile_authors.confirmation %}
+            <h3>Congratulations! You are a confirmed user.</h3>
+        {% else %}
+            <h4>You are not yet confirmed.</h4>
+        {% endif %}
         <p><a href="{% url 'profiles' %}">Profile</a></p>
         <p><a href="{% url 'logout' %}">Logout</a></p>
         <p><a href="{% url 'add_essay' %}">Create new Essay</Article></a></p>
