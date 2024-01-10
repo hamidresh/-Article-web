@@ -1,64 +1,61 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Essay List</title>
 </head>
 <body>
-{% if user.is_authenticated %}
-    {% if user.is_superuser %}
-        <h2>Welcome, Superuser {{ user.username }}!</h2>
-        <p><a href="{% url 'logout' %}">Logout</a></p>
-        <p><a href="{% url 'comment_approval_page' %}">Comment Approval Page</a></p>
-        <p><a href="{% url 'confirmation' %}">Confirmation Authors Page</a></p>
+    {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+            <h2>Welcome, Superuser {{ user.username }}!</h2>
+            <p><a href="{% url 'logout' %}">Logout</a></p>
+            <p><a href="{% url 'comment_approval_page' %}">Comment Approval Page</a></p>
+            <p><a href="{% url 'confirmation' %}">Confirmation Authors Page</a></p>
 
-    {% else %}
-        <h2>Welcome, {{ user.username }}!</h2>
-        {% if user.profile_authors.confirmation %}
-            <h3>Congratulations! You are a confirmed user.</h3>
         {% else %}
-            <h4>You are not yet confirmed.</h4>
+            <h2>Welcome, {{ user.username }}!</h2>
+            {% if user.profile_authors.confirmation %}
+                <h3>Congratulations! You are a confirmed user.</h3>
+            {% else %}
+                <h4>You are not yet confirmed.</h4>
+            {% endif %}
+            <p><a href="{% url 'profiles' %}">Profile</a></p>
+            <p><a href="{% url 'logout' %}">Logout</a></p>
+            <p><a href="{% url 'add_essay' %}">Create new Essay</a></p>
+
         {% endif %}
-        <p><a href="{% url 'profiles' %}">Profile</a></p>
-        <p><a href="{% url 'logout' %}">Logout</a></p>
-        <p><a href="{% url 'add_essay' %}">Create new Essay</Article></a></p>
-
-    {% endif %}
     {% else %}
-    <p>You are not logged in. Please <a href="{% url 'login' %}">
-        log in</a> or <a href="{% url 'register' %}">register</a>.</p>
-
-
+        <p>You are not logged in. Please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a>.</p>
     {% endif %}
+
     <h1>Essay List</h1>
 
+    <!-- Display the number of published articles -->
+    <p>Number of published articles: {{ essays.count }}</p>
+
     {% for essay in essays %}
-    <div>
-        <h2>{{ essay.title }}</h2>
-        <p>{{ essay.content }}</p>
-        <p>Written by: {{ essay.author.username }}</p>
+        <div>
+            <h2>{{ essay.title }}</h2>
+            <p>{{ essay.content }}</p>
+            <p>Written by: {{ essay.author.username }}</p>
 
-        {% if user.is_authenticated %}
-        {% if essay.author == user.profile_authors and essay.author.confirmation %}
-            <a class="btn btn-primary btn-sm" href="{% url 'update_essay' pk=essay.id %}">Update Essay</a>
-            <a class="btn btn-primary btn-sm" href="{% url 'delete_essay' pk=essay.id %}">Delete Essay</a>
-        {% else %}
-            <p>You do not have permission to edit or delete this essay.</p>
-        {% endif %}
-    {% endif %}
-
+            {% if user.is_authenticated %}
+                {% if essay.author == user.profile_authors and essay.author.confirmation %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'update_essay' pk=essay.id %}">Update Essay</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'delete_essay' pk=essay.id %}">Delete Essay</a>
+                {% else %}
+                    <p>You do not have permission to edit or delete this essay.</p>
+                {% endif %}
+            {% endif %}
 
             <h3>Comments:</h3>
             <ul>
                 {% for comment in essay.comment_set.all %}
-                {% if comment.is_approved %}
-                <li>{{ comment.text }}</li>
-                {% else %}
-                <li>comment is not approved</li>
-                {% endif %}
-
+                    {% if comment.is_approved %}
+                        <li>{{ comment.text }}</li>
+                    {% else %}
+                        <li><em>Comment is not approved</em></li>
+                    {% endif %}
                 {% endfor %}
-
             </ul>
 
             <!-- Add a form to submit new comments -->
