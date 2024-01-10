@@ -1,4 +1,3 @@
-<!-- templates/essay_list.html -->
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +16,8 @@
         <h2>Welcome, {{ user.username }}!</h2>
         <p><a href="{% url 'profiles' %}">Profile</a></p>
         <p><a href="{% url 'logout' %}">Logout</a></p>
+        <p><a href="{% url 'add_essay' %}">Create new Essay</Article></a></p>
+
     {% endif %}
     {% else %}
     <p>You are not logged in. Please <a href="{% url 'login' %}">
@@ -27,20 +28,19 @@
     <h1>Essay List</h1>
 
     {% for essay in essays %}
-        <div>
-            <h2>{{ essay.title }}</h2>
-            <p>{{ essay.content }}</p>
-            <p>Written by : {{ essay.author.username }}</p>
-            {% if user.is_authenticated %}
-            {% if essay.author.confirmation is True %}
-            
+    <div>
+        <h2>{{ essay.title }}</h2>
+        <p>{{ essay.content }}</p>
+        <p>Written by: {{ essay.author.username }}</p>
 
-                    <a type="button" class="btn btn-primary btn-sm" href="{% url 'update_essay' pk=essay.id %}">Update Essay</a>
-                    <a type="button" class="btn btn-primary btn-sm" href="{% url 'delete_essay' pk=essay.id %}">Delete Essay</a>
-                    {% else %}
-                    <li>comment is not approved</li>
-                {% endif %}
-            {% endif %}
+        {% if user.is_authenticated %}
+        {% if essay.author == user.profile_authors and essay.author.confirmation %}
+            <a class="btn btn-primary btn-sm" href="{% url 'update_essay' pk=essay.id %}">Update Essay</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'delete_essay' pk=essay.id %}">Delete Essay</a>
+        {% else %}
+            <p>You do not have permission to edit or delete this essay.</p>
+        {% endif %}
+    {% endif %}
 
 
             <h3>Comments:</h3>
