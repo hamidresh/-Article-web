@@ -1,0 +1,22 @@
+<!-- profiles.html -->
+
+<h2>Welcome, {{ user_profile.username }}!</h2>
+<p>Email: {{ user_profile.email }}</p>
+
+{% if user_profile.bio %}
+    <p>Bio: {{ user_profile.bio }}</p>
+    <p>Edit your bio:</p>
+    <form method="post" action="{% url 'profiles' %}">
+        {% csrf_token %}
+        {{ bio_form.as_p }}
+        <button type="submit">Save Bio</button>
+    </form>
+{% else %}
+    <p>No bio available. Add your bio below:</p>
+    <form method="post" action="{% url 'profiles' %}">
+        {% csrf_token %}
+        {{ bio_form.as_p }}
+        <button type="submit">Save Bio</button>
+    </form>
+{% endif %}
+<p><a href="{% url 'essay_list' %}">Go to Main Page</a></p>

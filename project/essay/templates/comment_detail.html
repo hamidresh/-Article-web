@@ -1,0 +1,13 @@
+<!-- comment_detail.html -->
+
+<h1>Comment Detail</h1>
+
+<p>Text: {{ comment.text }}</p>
+
+<p>
+    {% if comment.is_approved %}
+        <span style="color: green;">Approved</span>
+    {% else %}
+        <span style="color: red;">Not Approved</span>
+    {% endif %}
+</p>

@@ -1,0 +1,19 @@
+<!-- templates/add_essay.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Essay</title>
+</head>
+<body>
+    <h1>Add Essay</h1>
+
+        <form method="post" action="{% url 'add_essay' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Add Essay">
+        </form>
+
+    <a href="{% url 'essay_list' %}">Back to Essay List</a>
+</body>
+</html>

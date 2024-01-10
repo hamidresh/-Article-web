@@ -1,0 +1,14 @@
+{% block content %}
+
+<div class="content-container">
+    <div class="deletion-container">
+        <p>Are you sure you want to delete essay "{{item}}"?</p>
+        <form action="{% url 'delete_essay' item.id %}" method="post"> 
+            {% csrf_token %}
+            <a href="{% url 'essay_list' %}" class="cancel-link">cancel</a>
+            <input class="btn btn-danger rounded-pill px-3" type="submit" name="confirm" class="confirm-button" value="Delete">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
