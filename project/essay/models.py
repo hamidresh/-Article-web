@@ -4,8 +4,9 @@ from django.db import models
 from authors.models import Profile_authors
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-
-
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
+ # -*- coding: utf-8 -*-
 class Essay(models.Model):
     author = models.ForeignKey(Profile_authors , null=True
                               ,on_delete=models.SET_NULL)
@@ -23,6 +24,8 @@ def update_title_variable(sender, instance, **kwargs):
         instance.title = f"Article {instance.pk}"
         instance.save()
 
+@receiver(post_save, sender=Essay)
+
 class Comment(models.Model):
     essay = models.ForeignKey(Essay, on_delete=models.CASCADE)
     text = models.TextField()
@@ -31,3 +34,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text[:50]
+    
