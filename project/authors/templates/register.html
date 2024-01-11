@@ -1,10 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register User</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin-top: 50px;
+            text-align: center;
+        }
 
-{% block content %}
-    <h1>Register User</h1>
-    <form method="POST" action="{% url 'register' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Register User"/>
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
-{% endblock %}
+        .container {
+            margin: auto;
+            width: 50%;
+            text-align: left; 
+        }
+
+        
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}
+            <h1>Register User</h1>
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-primary" value="Register User"/>
+            </form>
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        {% endblock %}
+    </div>
+
+    <!-- Bootstrap JS and Popper.js scripts (optional, but may be needed for certain Bootstrap features) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
