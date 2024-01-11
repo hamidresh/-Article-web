@@ -3,6 +3,9 @@ import uuid
 from django.contrib.auth.models import User
 
 from django.db.models.signals import post_save , post_delete
+
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your models here.
 
 class Profile_authors(models.Model):
@@ -21,10 +24,20 @@ def profilecreat (sender , instance , created , **kwargs):
         user = instance
         authors = Profile_authors.objects.create(
             user = user ,
-             email = user.email ,
+            email = user.email ,
             username = user.username , 
 
         )
+        subject = u""
+        message = u""
+        send_mail (
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [authors.email],
+            fail_silently=False,
+                )
+
 
 def authorsdelet (sender , instance , **kwargs):
     user = instance.user
