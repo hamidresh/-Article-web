@@ -8,7 +8,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            margin-top: 300px;
+            margin-top: 250px;
             margin-left: 350px;
             text-align: center;
         }
@@ -34,6 +34,9 @@
         input{
          margin-top: 10px;
         }
+        input[type="submit"]{
+         background-color:#3E8CA7;
+        }
     </style>
 </head>
 <body>
@@ -48,6 +51,7 @@
                 </form>
                 <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
             {% else %}
+            <h1>Log in</h1>
                 <form action="{% url 'login' %}" method="POST">
                     {% csrf_token %}
                     <input type="text" name="username" placeholder="Username" /><br>

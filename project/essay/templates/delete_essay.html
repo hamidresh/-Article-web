@@ -44,6 +44,11 @@
         .btn-danger:hover {
             background-color: #bd2130;
         }
+        .custom-btn-color {
+            background-color: #BF6564; 
+            color: #ffffff; 
+            
+          }
     </style>
 </head>
 <body>
@@ -53,7 +58,7 @@
             <form action="{% url 'delete_essay' item.id %}" method="post">
                 {% csrf_token %}
                 <a href="{% url 'essay_list' %}" class="cancel-link">cancel</a>
-                <input class="btn btn-danger rounded-pill px-3" type="submit" name="confirm" value="Delete">
+                <input class="custom-btn-color" type="submit" name="confirm" value="delete">
             </form>
         </div>
     </div>

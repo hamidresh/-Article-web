@@ -8,13 +8,13 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            margin-top: 50px;
+            margin-top: 150px;
             text-align: center;
         }
 
         .container {
             margin: auto;
-            width: 50%;
+            width: 25%;
             text-align: left; 
         }
 
@@ -30,17 +30,28 @@
         p {
             margin-top: 20px;
         }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .custom-btn-color {
+            background-color: #7BC768; 
+            color: #ffffff; 
+            
+          }
     </style>
 </head>
 <body>
     <div class="container">
         {% block content %}
             <h1>Register User</h1>
-            <form method="POST" action="{% url 'register' %}">
+            <form method="post" action="{% url 'register' %}">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" class="btn btn-primary" value="Register User"/>
-            </form>
+                {{ form.username.label_tag }} {{ form.username }}
+                {{ form.email.label_tag }} {{ form.email }}
+                {{ form.password1.label_tag }} {{ form.password1 }}
+                {{ form.password2.label_tag }} {{ form.password2 }}
+                <button type="submit" class="btn custom-btn-color">Register</button>
+              </form>
             <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
         {% endblock %}
     </div>

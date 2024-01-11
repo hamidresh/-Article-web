@@ -11,19 +11,23 @@
             margin-top: 100px; 
             text-align: center;
             
+            
         }
 
         .container {
             margin: auto;
-            width: 60%; 
+            width: 70%; 
             text-align: left;
             margin-left: 100 px;
+            background-color: #F1F1F1;
         }
 
         
         h2, h3, h4, p {
             margin-bottom: 15px;
+        
         }
+
 
         form {
             margin-top: 20px;
@@ -47,14 +51,14 @@
             <form method="post" action="{% url 'profiles' %}">
                 {% csrf_token %}
                 {{ bio_form.as_p }}
-                <button type="submit" class="btn btn-primary">Save Bio</button>
+                <button type="submit" class="btn btn-success">Save Bio</button>
             </form>
         {% else %}
             <p>No bio available. Add your bio below:</p>
             <form method="post" action="{% url 'profiles' %}">
                 {% csrf_token %}
                 {{ bio_form.as_p }}
-                <button type="submit" class="btn btn-primary">Save Bio</button><br>
+                <button type="submit" class="btn btn-success">Save Bio</button><br>
             </form>
         {% endif %}
         <br>

@@ -40,6 +40,11 @@
             background-color: #2F6D85;
             border-color: #2F6D85;
         }
+        .custom-btn-color {
+            background-color: #3E8CA7; 
+            color: #ffffff; 
+            
+          }
     </style>
 </head>
 <body>
@@ -50,7 +55,7 @@
             {% csrf_token %}
             {{ form.as_p }}     
 
-            <button class="btn btn-primary" type="submit">Update Essay</button>
+            <button class="btn custom-btn-color" type="submit">update essay</button>
         </form>
     </div>
 
