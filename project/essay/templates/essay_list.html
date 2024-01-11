@@ -145,9 +145,11 @@
                 <h3>Comments:</h3>
                 <ul class="comments-list">
                     {% for comment in essay.comment_set.all %}
-                    <li class="comment-item {% if comment.is_approved %}approved-comment{% else %}unapproved-comment{% endif %}">
-                        {{ comment.text }}
-                    </li>
+                    {% if comment.is_approved %}
+                    <li> {{comment.text}}</li>
+                    {% else %}
+                    <li><em>Comment is not approved</em></li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
 
