@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:project-ui-update/essay/templates/comment_approval_page.html
 <!DOCTYPE html>
 <html lang="en">
@@ -256,3 +257,132 @@
 </body>
 </html>
 >>>>>>> master:project/essay/templates/comment_approval_page.html
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation Authors Page</title>
+    <!-- Add Bootstrap CDN link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 100 px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #content-wrapper {
+            width: 80%; /* Adjust as needed */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        .comment, .form {
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-left: 300px;
+        }
+
+        .comment {
+            width: 48%;
+        }
+
+        .form {
+            width: 48%;
+
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="content-wrapper">
+    <h1>Comment Approval Page</h1>
+    <div class="container">
+        <div class="comment">
+            
+            <ul>
+                {% for comment in comments %}
+                    <li>" {{ comment.text }} " for essay: <strong>{{ comment.essay }}</strong> (Approved: {{ comment.is_approved }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="form">
+            {% for form in forms %}
+                <form method="post" action="{% url 'comment_approval_page' %}">
+                    {% csrf_token %}
+                    {{ form.comment_id }}
+                    {{ form.is_approved }}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            {% endfor %}
+        </div>
+    
+    </div>
+
+        <p><a href="{% url 'essay_list' %}">Go to Main Page</a></p>
+    </div>
+</div>
+
+    <!-- Add Bootstrap JS and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+>>>>>>> master

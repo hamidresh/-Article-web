@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -171,3 +172,180 @@
 </body>
 
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay List</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin-top: 50px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+
+        .container {
+            margin: auto;
+            width: 60%;
+            text-align: left;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        li {
+            margin-bottom: 15px;
+        }
+
+        .essay-section {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f9fa; /* Light gray background for essays */
+        }
+
+        .comments-section {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment {
+            margin-bottom: 10px;
+        }
+
+        .approved-comment {
+            color: #333;
+        }
+
+        .unapproved-comment {
+            color: #888;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comments-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .comment-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .custom-btn-color {
+            background-color: #3E8CA7; 
+            color: #ffffff; 
+            
+          }
+          .custom-btn-color2 {
+            background-color: #BF6564; 
+            color: #ffffff; 
+            
+          }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+        <h2>Welcome, Superuser {{ user.username }}!</h2>
+        <p><a href="{% url 'logout' %}">Logout</a></p>
+        <p><a href="{% url 'comment_approval_page' %}">Comment Approval Page</a></p>
+        <p><a href="{% url 'confirmation' %}">Confirmation Authors Page</a></p>
+
+        {% else %}
+        <h2>Welcome, {{ user.username }}!</h2>
+        {% if user.profile_authors.confirmation %}
+        <h3>Congratulations! You are a confirmed user.</h3>
+        {% else %}
+        <h4>You are not yet confirmed.</h4>
+        {% endif %}
+        <p><a href="{% url 'profiles' %}">Profile</a></p>
+        <p><a href="{% url 'logout' %}">Logout</a></p>
+        <p><a href="{% url 'add_essay' %}">Create new Essay</a></p>
+
+        {% endif %}
+        {% else %}
+        <p>You are not logged in. Please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a>.</p>
+        {% endif %}
+
+        <h1>Essay List</h1>
+
+        {% for essay in essays %}
+        <div class="essay-section">
+            <h2>{{ essay.title }}</h2>
+            <p>{{ essay.content }}</p>
+            <p>Written by: {{ essay.author.username }}</p>
+            <p style="font-size:smaller;">{{ essay.timestamp }}</p>
+
+            {% if user.is_authenticated %}
+            {% if essay.author == user.profile_authors and essay.author.confirmation %}
+            <a class="btn custom-btn-color" href="{% url 'update_essay' pk=essay.id %}">update essay</a>
+            <a class="btn custom-btn-color2" href="{% url 'delete_essay' pk=essay.id %}">delete essay</a>
+            {% else %}
+            <p>You do not have permission to edit or delete this essay.</p>
+            {% endif %}
+            {% endif %}
+
+            <div class="comments-section">
+                <h3>Comments:</h3><hr>
+                <ul class="comments-list">
+                    {% for comment in essay.comment_set.all %}
+                    {% if comment.is_approved %}
+                    <li style="font-size:large;"> " {{comment.text}} "</li><br>
+                    <li style="font-size:smaller;"> {{comment.timestamp}}</li><hr>
+                    {% else %}
+                    <li><em>Comment is not approved</em></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+
+                <!-- Add a form to submit new comments -->
+                <form method="post" action="{% url 'add_comment' essay.id %}">
+                    {% csrf_token %}
+                    <textarea name="text" rows="3" cols="50" required></textarea><br>
+                    <button type="submit" class="btn btn-secondary" >add comment</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Bootstrap JS and Popper.js scripts (optional, but may be needed for certain Bootstrap features) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+>>>>>>> master
