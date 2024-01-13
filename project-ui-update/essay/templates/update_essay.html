@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 200px auto; 
+            padding: 0;
+            max-width: 600px; 
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #3E8CA7;
+            color: #fff;
+            padding: 8px 16px; /* Adjusted button padding */
+            border: none;
+            border-color: #3E8CA7;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2F6D85;
+            border-color: #2F6D85;
+        }
+        .custom-btn-color {
+            background-color: #3E8CA7; 
+            color: #ffffff; 
+            
+          }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Update Essay</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}     
+
+            <button class="btn custom-btn-color" type="submit">update essay</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js scripts (optional, but may be needed for certain Bootstrap features) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
