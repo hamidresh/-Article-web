@@ -5,6 +5,7 @@ from .models import Essay, Comment
 from .forms import EssayForm , CommentApprovalForm
 from django.contrib.auth.decorators import login_required , user_passes_test
 from authors.models import Profile_authors
+from django.core.mail import send_mail
 
 def essay_list(request):
     essays = Essay.objects.all()
@@ -26,12 +27,20 @@ def essay_list(request):
     return render(request, 'essay_list.html', {'essays': essays})
 @login_required
 def add_essay(request):
+    essays = Essay.objects.all()
     if request.method == 'POST':
         form = EssayForm(request.POST)
         if form.is_valid():
             essay = form.save(commit=False)
             essay.author = request.user.profile_authors
             form.save()
+            for essay in essays:
+                subject = 'Hello Friend!'
+                message = 'This is test 4.'
+                from_email = 'hamidreshtime@gmail.com'
+                recipient_list = [essay.author.email]
+                send_mail(subject, message, from_email, recipient_list)            
+
             return redirect('essay_list')
     else:
         form = EssayForm(initial={'author': request.user.username})  # Set the initial value for the author field
